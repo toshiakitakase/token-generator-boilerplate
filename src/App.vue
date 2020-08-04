@@ -30,26 +30,13 @@
           </b-form-input>
         </b-form-group>
         <b-form-group
-          id="input-group-3"
-          label="小数点以下の桁数："
-          label-for="input-3"
-        >
-          <b-form-input 
-            id="input-3"
-            v-model="form.dicimals"
-            type="number"
-            required
-            placeholder="18">
-          </b-form-input>
-        </b-form-group>
-        <b-form-group
           id="input-group-4"
           label="総発行料："
           label-for="input-4"
         >
           <b-form-input 
             id="input-4"
-            v-model="form.totalSupply"
+            v-model="form.supply"
             type="number"
             required
             placeholder="1000000000000000000">
@@ -58,6 +45,7 @@
         <b-button type="submit" variant="primary" class="mr-2">発行する</b-button>
         <b-button type="reset" variant="danger">リセットする</b-button>
       </b-form>
+      <p class="mt-4">コントラクトアドレス：{{ contractAddress }}</p>
     </div>
   </div>
 </template>
@@ -69,12 +57,14 @@ export default {
     form: {
       tokenName: '',
       tokenSymbol: '',
-      dicimals: 0,
-      totalSupply: 0
+      supply: 0
     },
+    contractAddress: '',
     show: true
   }),
   components: {
+  },
+  async created()  {
   },
   methods: {
     onSubmit(evt) {
@@ -84,8 +74,7 @@ export default {
       evt.preventDefault()
       this.form.tokenName = ''
       this.form.tokenSymbol = ''
-      this.form.dicimals = null
-      this.form.totalSupply = null
+      this.form.supply = null
       this.show = false
       this.$nextTick(() => {
         this.show = true
